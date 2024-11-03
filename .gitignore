@@ -1,0 +1,5 @@
+# 忽略 checkpoins 文件夹
+checkpoints/
+
+# 忽略data文件夹
+data/
