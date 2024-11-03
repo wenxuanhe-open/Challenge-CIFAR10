@@ -119,8 +119,74 @@ def plot_training_and_validation(log_files, model_names, config_path="configs/co
     print(f"Training and validation loss plot saved to {loss_plot_path}")
     plt.show()
 
-# 1: 绘制 ResNet18 和 ResNet34 的图表
-plot_training_and_validation(["log/ResNet18_log.txt", "log/ResNet34_log.txt"], ["ResNet18", "ResNet34"], config_path="configs/config.yaml")
 
-# 2: 绘制 Plain18 和 Plain34 的图表
-plot_training_and_validation(["log/Plain18_log.txt", "log/Plain34_log.txt"], ["Plain18", "Plain34"], config_path="configs/config.yaml")
+def plot_single_model(log_file, model_name, config_path="configs/config.yaml"):
+    """Plot training loss and validation error curves for a single model and save the plots."""
+    # 使用固定的颜色方案
+    color_palette = ["#00BFFF"]  # 浅蓝色
+
+    batch_size, learning_rate = load_config(config_path)
+
+    # 确保保存图像的目录存在
+    plots_dir = "plots"
+    os.makedirs(plots_dir, exist_ok=True)
+
+    # 绘制验证错误曲线
+    plt.figure(figsize=(12, 6))
+    if os.path.exists(log_file):
+        epochs, _, _, val_errors = parse_log_file(log_file)
+        plt.plot(epochs, val_errors, label=f"{model_name} Validation Error", color=color_palette[0])
+    else:
+        print(f"Log file {log_file} not found.")
+        return
+
+    # 标注超参数信息
+    plt.text(0.5, 0.95, f"Batch Size: {batch_size}, Learning Rate: {learning_rate}",
+             transform=plt.gca().transAxes, fontsize=10, verticalalignment='top')
+
+    plt.xlabel("Epochs")
+    plt.ylabel("Validation Error (%)")
+    plt.title(f"Validation Error for {model_name}")
+    plt.legend()
+    plt.grid(True)
+    # 保存图像
+    validation_plot_path = os.path.join(plots_dir, f"validation_error_{model_name}.png")
+    plt.savefig(validation_plot_path)
+    print(f"Validation error plot saved to {validation_plot_path}")
+    plt.show()
+
+    # 绘制训练和验证损失曲线
+    plt.figure(figsize=(12, 6))
+    if os.path.exists(log_file):
+        epochs, train_losses, val_losses, _ = parse_log_file(log_file)
+        plt.plot(epochs, train_losses, label=f"{model_name} Training Loss", linestyle='--', color=color_palette[0])
+        plt.plot(epochs, val_losses, label=f"{model_name} Validation Loss", color=color_palette[0])
+    else:
+        print(f"Log file {log_file} not found.")
+        return
+
+    # 标注超参数信息
+    plt.text(0.5, 0.95, f"Batch Size: {batch_size}, Learning Rate: {learning_rate}",
+             transform=plt.gca().transAxes, fontsize=10, verticalalignment='top')
+
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.title(f"Training and Validation Loss for {model_name}")
+    plt.legend()
+    plt.grid(True)
+    # 保存图像
+    loss_plot_path = os.path.join(plots_dir, f"training_and_validation_loss_{model_name}.png")
+    plt.savefig(loss_plot_path)
+    print(f"Training and validation loss plot saved to {loss_plot_path}")
+    plt.show()
+
+
+# # 1: 绘制 ResNet18 和 ResNet34 的图表
+# plot_training_and_validation(["log/ResNet18_log.txt", "log/ResNet34_log.txt"], ["ResNet18", "ResNet34"], config_path="configs/config.yaml")
+
+# # 2: 绘制 Plain18 和 Plain34 的图表
+# plot_training_and_validation(["log/Plain18_log.txt", "log/Plain34_log.txt"], ["Plain18", "Plain34"], config_path="configs/config.yaml")
+
+# 绘制改进过的ResNet18WithMS
+plot_single_model("log/ResNet18WithMS_log.txt", "ResNet18WithMS", config_path="configs/config.yaml")
+

@@ -5,7 +5,7 @@ import torch.optim as optim
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-from models import Plain18, Plain34, ResNet18, ResNet34
+from models import ResNet18WithMS  # 确保在 models 模块中已经定义和导入 ResNet18WithMS
 from utils.utils import calculate_accuracy
 from tqdm import tqdm
 import argparse
@@ -18,8 +18,8 @@ with open("configs/config.yaml", "r") as f:
 EPOCHS = config['epochs']
 BATCH_SIZE = config['batch_size']
 LEARNING_RATE = config['learning_rate']
-LOG_DIR = "log"  # 直接指定日志目录
-CHECKPOINT_DIR = "checkpoints"  # 模型检查点保存目录
+LOG_DIR = "log"  # 使用与原来相同的日志目录
+CHECKPOINT_DIR = "checkpoints"  # 使用与原来相同的模型检查点保存目录
 
 # 数据加载
 transform = transforms.Compose([
@@ -116,12 +116,11 @@ def train(model, criterion, optimizer, scheduler, num_epochs, model_name, start_
             # 保存检查点
             save_checkpoint(model, optimizer, epoch, os.path.join(CHECKPOINT_DIR, f"{model_name}_checkpoint.pth"))
 
-
 # 设置命令行参数
-parser = argparse.ArgumentParser(description="Training Script for Multiple Models")
+parser = argparse.ArgumentParser(description="Training Script for ResNet18 with Multi-Scale Feature Extraction")
 parser.add_argument('--device', type=str, default="cuda:0", help='Device to use for training (default: cuda:0)')
-parser.add_argument('--model', type=str, default="Plain18", choices=["Plain18", "Plain34", "ResNet18", "ResNet34"],
-                    help='Model to train (default: Plain18)')
+parser.add_argument('--model', type=str, default="ResNet18WithMS", choices=["ResNet18WithMS"],
+                    help='Model to train (default: ResNet18WithMS)')
 args = parser.parse_args()
 
 # 主程序
@@ -129,19 +128,8 @@ if __name__ == '__main__':
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    model_dict = {
-        "Plain18": Plain18,
-        "Plain34": Plain34,
-        "ResNet18": ResNet18,
-        "ResNet34": ResNet34
-    }
-
     model_name = args.model
-    model_class = model_dict.get(model_name)
-    if model_class is None:
-        raise ValueError(f"Model {model_name} is not recognized.")
-    
-    model = model_class().to(device)
+    model = ResNet18WithMS().to(device)
     print(f"\nTraining model: {model_name}")
 
     # 定义损失函数和优化器
@@ -160,8 +148,6 @@ if __name__ == '__main__':
 
 
 '''
-python train.py --model Plain18 --device cuda:3
-python train.py --model Plain34 --device cuda:4
-python train.py --model ResNet18 --device cuda:6
-python train.py --model ResNet34 --device cuda:7
+运行脚本示例：
+python train_ms.py --model ResNet18WithMS --device cuda:7
 '''
