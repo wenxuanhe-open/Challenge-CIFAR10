@@ -9,35 +9,70 @@
 ```
 .
 ├── checkpoints                # 训练过程中保存的模型权重
+│   ├── Plain18_checkpoint.pth             # Plain18 模型权重
+│   ├── Plain34_checkpoint.pth             # Plain34 模型权重
+│   ├── ResNet18_checkpoint.pth            # ResNet18 模型权重
+│   ├── ResNet34_checkpoint.pth            # ResNet34 模型权重
+│   ├── ResNet18WithMS_checkpoint.pth      # ResNet18 with MS 模型权重
+│   ├── vit_tiny_checkpoint.pth            # ViT-tiny (预训练) 模型权重
+│   ├── vitn_tiny_checkpoint.pth           # ViT-tiny (无预训练) 模型权重
+│   └── custom_vit_checkpoint.pth          # 自定义 ViT 模型权重
+│
 ├── configs                    # 配置文件
+│   ├── config.yaml                       # Plain 和 ResNet 模型配置文件
+│   ├── config_vit.yaml                   # Vision Transformer 模型配置文件
+│   └── config_sota.yaml                  # SOTA 模型配置文件
+│
 ├── data                       # 数据集文件夹
-├── log                        # 训练日志
-│   ├── custom_vit_log.txt         # 自定义 ViT 模型日志
-│   ├── Plain18_log.txt            # Plain18 日志
-│   ├── Plain34_log.txt            # Plain34 日志
-│   ├── ResNet18_log.txt           # ResNet18 日志
-│   ├── ResNet18WithMS_log.txt     # ResNet18 with MS 日志
-│   ├── ResNet34_log.txt           # ResNet34 日志
-│   ├── sota_log.txt               # SOTA 模型日志
-│   ├── vit_tiny_log.txt           # ViT-tiny (预训练) 日志
-│   └── vitn_tiny_log.txt          # ViT-tiny (无预训练) 日志
-├── models                       # 模型定义文件夹
-├── paper                        # 相关论文
-├── plots                        # 实验生成的对比图
+│   ├── cifar-10-batches-py               # CIFAR-10 数据集 (解压后的文件)
+│   └── cifar-10-python.tar.gz            # CIFAR-10 数据集 (压缩包)
+│
+├── log                        # 训练日志，记录每个 epoch 的损失和验证错误率
+│   ├── Plain18_log.txt                   # Plain18 模型训练日志
+│   ├── Plain34_log.txt                   # Plain34 模型训练日志
+│   ├── ResNet18_log.txt                  # ResNet18 模型训练日志
+│   ├── ResNet34_log.txt                  # ResNet34 模型训练日志
+│   ├── ResNet18WithMS_log.txt            # ResNet18 with MS 模型训练日志
+│   ├── vit_tiny_log.txt                  # ViT-tiny (预训练) 模型训练日志
+│   ├── vitn_tiny_log.txt                 # ViT-tiny (无预训练) 模型训练日志
+│   ├── custom_vit_log.txt                # 自定义 ViT 模型训练日志
+│   └── sota_log.txt                      # SOTA 模型训练日志
+│
+├── models                     # 模型定义文件夹
+│   ├── __init__.py                      # 初始化文件
+│   ├── plainnet.py                      # Plain 网络定义
+│   ├── resnet.py                        # ResNet 网络定义
+│   └── resnet_multiscale.py             # ResNet with MS 网络定义
+│
+├── paper                      # 相关论文文档
+│   ├── An Image is Worth 16x16 Words Transformers for Im.pdf  # ViT 参考论文
+│   ├── Deep Residual Learning for Image Recognition.pdf       # ResNet 参考论文
+│   └── How to train your ViT.pdf                              # ViT 训练指南
+│
+├── plots                      # 实验生成的对比图
 │   ├── training_and_validation_loss_comparison_Plain18_Plain34.png
 │   ├── training_and_validation_loss_comparison_ResNet18_ResNet34.png
-│   ├── training_and_validation_loss_comparison_vit-tiny-p_vit-tiny-n_vit-tiny-c.png
 │   ├── training_and_validation_loss_ResNet18WithMS.png
+│   ├── training_and_validation_loss_Vit-tiny-Pre-Training.png
+│   ├── training_and_validation_loss_comparison_vit-tiny-p_vit-tiny-n_vit-tiny-c.png
 │   ├── validation_error_comparison_Plain18_Plain34.png
 │   ├── validation_error_comparison_ResNet18_ResNet34.png
-│   ├── validation_error_comparison_vit-tiny-p_vit-tiny-n_vit-tiny-c.png
 │   ├── validation_error_ResNet18WithMS.png
-│   └── validation_error_Vit-tiny-Pre-Training.png
-├── utils                        # 辅助工具
-├── train.py                     # ResNet 和 Plain 网络训练脚本
-├── train_vit.py                 # ViT 网络训练脚本
-├── custom_train_vit.py          # 自定义 ViT 模型训练脚本
-└── SOTA.py                      # SOTA 模型尝试脚本
+│   ├── validation_error_Vit-tiny-Pre-Training.png
+│   └── validation_error_comparison_vit-tiny-p_vit-tiny-n_vit-tiny-c.png
+│
+├── utils                      # 辅助工具和脚本
+│   ├── timm_utils.py                    # Vision Transformer 辅助工具
+│   ├── utils.py                         # 通用工具函数
+│   └── custom_train_vit.py              # 自定义 ViT 训练脚本
+│
+├── train.py                   # Plain 和 ResNet 模型训练脚本
+├── train_ms.py                # ResNet18 with MS 模型训练脚本
+├── train_vit.py               # ViT 模型训练脚本
+├── custom_train_vit.py        # 自定义 ViT 模型训练脚本
+├── SOTA.py                    # SOTA 模型尝试脚本
+└── .gitignore                 # Git 忽略文件
+
 ```
 
 ---
