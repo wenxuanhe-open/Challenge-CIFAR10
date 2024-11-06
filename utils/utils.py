@@ -187,6 +187,8 @@ def plot_single_model(log_file, model_name, config_path="configs/config.yaml"):
 # # 2: 绘制 Plain18 和 Plain34 的图表
 # plot_training_and_validation(["log/Plain18_log.txt", "log/Plain34_log.txt"], ["Plain18", "Plain34"], config_path="configs/config.yaml")
 
-# 绘制改进过的ResNet18WithMS
-plot_single_model("log/ResNet18WithMS_log.txt", "ResNet18WithMS", config_path="configs/config.yaml")
+# # 3:绘制改进过的ResNet18WithMS
+# plot_single_model("log/ResNet18WithMS_log.txt", "ResNet18WithMS", config_path="configs/config.yaml")
 
+# 4: 绘制 ResNet18 和 ResNet34 的图表
+plot_training_and_validation(["log/vit_tiny_log.txt", "log/vitn_tiny_log.txt", "log/custom_vit_log.txt"], ["vit-tiny-p", "vit-tiny-n", "vit-tiny-c"], config_path="configs/config_vit.yaml")
