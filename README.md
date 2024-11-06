@@ -255,7 +255,7 @@ python SOTA.py --config configs/config_sota.yaml
 当前顶尖的图像处理模型已经在大规模数据集（如 ImageNet）上取得了极高的准确率，验证了最新模型架构的强大特征提取能力。下图展示了当前在图像分类领域 SOTA 模型的性能对比：
 
 - **图像处理 SOTA 模型性能对比**：
-  ![Image Processing SOTA](plots/SOTA/INSOTA.png)
+  ![Image Processing SOTA](SOTA/INSOTA.png)
 
 **分析**：
 - 模型如 **eva02_large_patch14_448.mim_m38m_ft_in22k_in1k** 和 **convnext_xxlarge.clip_laion2b_soup_ft_in1k** 在 ImageNet 上的 Top-1 和 Top-5 准确率非常接近理论上限，达到了 90% 以上的准确率。
@@ -274,7 +274,7 @@ python SOTA.py --config configs/config_sota.yaml
 在大型语言模型（LLM）领域，当前的 SOTA 模型也达到了新的技术高度。下图展示了当前排名靠前的 LLM 模型：
 
 - **LLM 模型对比**：
-  ![LLM SOTA](plots/SOTA/LLMSOTA.png)
+  ![LLM SOTA](SOTA/LLMSOTA.png)
 
 **分析**：
 - **ChatGPT-4 最新模型（ChatGPT-4.0-latest）**：
