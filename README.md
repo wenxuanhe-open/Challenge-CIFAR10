@@ -213,8 +213,6 @@ python SOTA.py --config configs/config_sota.yaml
      - **过拟合问题显著**：训练误差快速下降，但验证误差维持较高水平，表明模型在数据规模有限的情况下难以充分泛化。
 
   3. **自定义 ViT 模型 (ViT-tiny-c)**：
-     - **训练和验证损失曲线**：
-       ![Custom ViT Loss](plots/training_and_validation_loss_comparison_vit-tiny-p_vit-tiny-n_vit-tiny-c.png)
      - **分析**：验证错误率维持在 **31.03%**，性能不及标准 ViT，但由于架构简洁，适合快速验证实验假设。
 
 ---
