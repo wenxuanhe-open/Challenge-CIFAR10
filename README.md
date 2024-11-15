@@ -221,6 +221,8 @@ python SOTA.py --config configs/config_sota.yaml
 
 - **训练与验证损失曲线**：
   ![ViT Pre-Trained Loss](plots/training_and_validation_loss_Vit-tiny-Pre-Training.png)
+- **验证错误率曲线**：
+  ![Validation Error Comparison](plots/validation_error_Vit-tiny-Pre-Training.png)
   
   **分析**：
   - **损失曲线的变化**：在训练初期，训练和验证损失迅速下降，并在短时间内趋于平稳，表明模型训练稳定且收敛速度快。
